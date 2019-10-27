@@ -3,6 +3,7 @@ const app = express();
 const methodOverride = require('method-override');
 const session = require('express-session');
 const PORT = 3000; 
+require('./db/db');
 
 app.set('view engine', 'ejs');
 
@@ -16,8 +17,10 @@ app.use(session({
     // we only really want to add stuff to our session after user
     // logs in or registers to comply with the law
   }));  
+
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
+//body parser 
 app.use(express.urlencoded({extended: false}));
 
 const userController = require('./controllers/users')
