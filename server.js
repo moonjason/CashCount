@@ -34,7 +34,9 @@ app.use('/auth', userController);
 
 app.get('/', (req, res) => {
     console.log(req.session, 'home route');
-    res.render('home');
+    res.render('home', {
+        logOut: req.session.logOutMsg,
+    });
 })
 
 app.listen(PORT, () => {
