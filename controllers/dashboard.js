@@ -16,4 +16,14 @@ router.get('/logout', (req, res) => {
     })
 })
 
+router.post('/budget', async (req, res) => {
+    const createdExpense = await Expenses.create(req.body)
+    console.log(createdExpense)
+    const user = await User.find(req.session.username)
+    user.expenses.push(createdExpense)
+    await user.save()
+    console.log(user)
+    res.send(user)
+})
+
 module.exports = router;

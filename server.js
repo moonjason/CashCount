@@ -43,15 +43,15 @@ app.get('/', (req, res) => {
     });
 })
 
-app.post('/giveme', async (req, res) =>{
-    const createdExpense = await Expenses.create(req.body)
-    console.log(createdExpense)
-    const user = await User.findById('5db67f7637910e6eed426d67')
-    user.expenses.push(createdExpense)
-    await user.save()
-    console.log(user)
-    res.send(user)
-})
+// app.post('/', async (req, res) =>{
+//     const createdExpense = await Expenses.create(req.body)
+//     console.log(createdExpense)
+//     const user = await User.findById('5db67f7637910e6eed426d67')
+//     user.expenses.push(createdExpense)
+//     await user.save()
+//     console.log(user)
+//     res.send(user)
+// })
 
 app.listen(PORT, () => {
     console.log('Listening on', PORT);
