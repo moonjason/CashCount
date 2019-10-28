@@ -14,21 +14,25 @@ router.get('/login', (req, res) => {
 // login
 
 router.post('/register',  async (req, res) => {
-    const password = req.body.password2;
-    const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10)); 
+    if (req.body.password1 === req.body.password2) {
+        const password = req.body.password2;
+        const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10)); 
 
-    const userDbEntry = {}; 
+        const userDbEntry = {}; 
 
-    userDbEntry.username = req.body.username;
-    userDbEntry.password = passwordHash; 
-    userDbEntry.email = req.body.email; 
+        userDbEntry.username = req.body.username;
+        userDbEntry.password = passwordHash; 
+        userDbEntry.email = req.body.email; 
 
-    const createdUser = await User.create(userDbEntry);
-    console.log(createdUser);
-    req.session.username = createdUser.eventNames;
-    req.session.logged = true; 
+        const createdUser = await User.create(userDbEntry);
+        console.log(createdUser);
+        req.session.username = createdUser.eventNames;
+        req.session.logged = true; 
 
-    res.render('/dash/dashboard');
+        res.render('dash/dashboard');
+    } else {
+        res.redirect('auth/register')
+    }
 })
 
 router.post('/login', async (req, res) => {
@@ -48,7 +52,7 @@ router.post('/login', async (req, res) => {
                 res.render('dash/dashboard')
             } else {
                 req.session.message = 'Username or Password is Incorrect'
-                res.redirect('/login')
+                res.redirect('auth/login')
             }
         } else {
             req.session.message = 'Username or Password is Incorrect'

@@ -6,11 +6,11 @@ const userSchema = new mongoose.Schema({
     password: String,
     incomes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Income'
+        ref: 'Income',
     }],
     expenses: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Expense'
+        ref: 'Expense',
     }]
 })
 
