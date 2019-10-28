@@ -28,7 +28,36 @@ router.post('/register',  async (req, res) => {
     req.session.username = createdUser.eventNames;
     req.session.logged = true; 
 
-    res.redirect('dashboard');
+    res.render('/dash/dashboard');
+})
+
+router.post('/login', async (req, res) => {
+    try {
+        const user = await User.findOne({username: req.body.username})
+        // if User.findOne returns null/undefined we'll catch an error
+        if (user) {
+            // if there is a username... compare their passwords 
+            if(bcrypt.compareSync(req.body.password, user.password)){
+                //start sesh
+                req.session.message = '';
+                // if there are no failed attempts, there is no message
+                // set two properties on the sessionn called username and logged 
+                req.session.username = user.username;
+                req.session.logged = true;
+                console.log(req.session);
+                res.render('dash/dashboard')
+            } else {
+                req.session.message = 'Username or Password is Incorrect'
+                res.redirect('/login')
+            }
+        } else {
+            req.session.message = 'Username or Password is Incorrect'
+        }
+    } catch(err) {
+        console.log(err);
+    }
+
+
 })
 
 module.exports = router;
