@@ -27,7 +27,8 @@ const userController = require('./controllers/users')
 app.use('/auth', userController);
 
 app.get('/', (req, res) => {
-    res.render('home')
+    console.log(req.session, 'home route');
+    res.render('home');
 })
 
 app.listen(PORT, () => {
