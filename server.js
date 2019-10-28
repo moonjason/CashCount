@@ -26,7 +26,10 @@ app.use(express.static('public'));
 //body parser 
 app.use(express.urlencoded({extended: false}));
 
-const userController = require('./controllers/users')
+const userController = require('./controllers/users');
+const dashController = require('./controllers/dashboard');
+
+app.use('/dash', dashController);
 app.use('/auth', userController);
 
 app.get('/', (req, res) => {

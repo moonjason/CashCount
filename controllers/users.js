@@ -29,7 +29,7 @@ router.post('/register',  async (req, res) => {
         req.session.username = createdUser.eventNames;
         req.session.logged = true; 
 
-        res.render('dash/dashboard');
+        res.redirect('dash/dashboard'); //render req.session.username's items?? 
     } else {
         res.redirect('auth/register')
     }
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
                 req.session.username = user.username;
                 req.session.logged = true;
                 console.log(req.session);
-                res.render('dash/dashboard')
+                res.redirect('dash/dashboard')
             } else {
                 req.session.message = 'Username or Password is Incorrect'
                 res.redirect('auth/login')
