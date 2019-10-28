@@ -1,11 +1,21 @@
 <%- include('../partials/header') %>
+<script src="js/app.js" defer></script>
     <h1>Dashboard</h1>
+    <div id="calculator">
+        <select id="plusMinus">
+            <option value="+">+</option>
+            <option value="-">-</option>
+        </select>
+        <input id="itemDesc" type="text" name="itemDesc" placeholder="Description">
+        <input id="itemAmount" type="number" name="itemAmount" placeholder="Amount">
+        <button id="addItem" type="submit">Add</button>
+    </div>
     <h3>Income</h3>
-    <ul>
+    <ul id="inc">
         <li>Income Item</li>
     </ul>
     <h3>Expense</h3>
-    <ul>
+    <ul id="exp">
         <li>Expense Item</li>
     </ul>
     <p><a href="dash/logout">Logout</a></p>
