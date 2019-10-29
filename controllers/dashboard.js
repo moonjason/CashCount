@@ -6,10 +6,6 @@ const Expense = require('../models/expenses');
 const bcrypt = require('bcryptjs');
 require('../db/db');
 
-router.get('/:id', (req, res) => {
-    res.render('dash/dashboard')// with the sessions current shit 
-})
-
 router.get('/logout', (req, res) => {
     // creates a brand new cookie, without any of our properties that we previously added to it
     req.session.destroy((err) => {
@@ -17,6 +13,19 @@ router.get('/logout', (req, res) => {
             ? console.log(err)
             : res.redirect('/')
     })
+})
+
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findOne({'_id': req.params.id})
+            .populate('incomes').populate('expenses')
+        console.log(user);
+        res.render('dash/dashboard', {
+            user,
+        })// with the sessions current shit 
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 router.post('/:id/budget/inc', async (req, res) => {
@@ -30,6 +39,7 @@ router.post('/:id/budget/inc', async (req, res) => {
 })
 
 router.post('/:id/budget/exp', async (req, res) => {
+    console.log('hiiii')
     const createdExpense = await Expense.create(req.body);
     console.log(createdExpense)
     const user = await User.findById('5db67f7637910e6eed426d67')
@@ -37,6 +47,11 @@ router.post('/:id/budget/exp', async (req, res) => {
     await user.save()
     console.log(user)
     res.send(user)
+})
+
+router.delete('/:id', async (req, res) => {
+    console.log('delete route');
+    
 })
 
 module.exports = router;
