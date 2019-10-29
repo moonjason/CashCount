@@ -1,22 +1,21 @@
 <%- include('../partials/header') %>
-<script src="js/app.js" defer></script>
+    <script src="../js/app.js" defer></script>
     <h1>Dashboard</h1>
     <div id="calculator">
-        <select id="plusMinus">
-            <option value="+">+</option>
-            <option value="-">-</option>
-        </select>
-        <input id="itemDesc" type="text" name="itemDesc" placeholder="Description">
-        <input id="itemAmount" type="number" name="itemAmount" placeholder="Amount">
-        <button id="addItem" type="submit">Add</button>
+        <input id="itemDesc" type="text" name="description" placeholder="Description">
+        <input id="itemAmount" type="number" name="amount" placeholder="Amount">
+        <button id="addInc" type="submit" value="+">+</button>
+        <button id="addExp" type="submit" value="-">-</button>
     </div>
-    <h3>Income</h3>
-    <ul id="inc">
-        <li>Income Item</li>
-    </ul>
-    <h3>Expense</h3>
-    <ul id="exp">
-        <li>Expense Item</li>
-    </ul>
+    <div id="dash">
+        <h3>Income</h3>
+        <ul id="inc">
+            <li>Income Item</li>
+        </ul>
+        <h3>Expense</h3>
+        <ul id="exp">
+            <li>Expense Item</li>
+        </ul>
+    </div>
     <p><a href="dash/logout">Logout</a></p>
 <%- include('../partials/footer') %> 

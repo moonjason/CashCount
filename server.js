@@ -3,9 +3,6 @@ const app = express();
 const methodOverride = require('method-override');
 const session = require('express-session');
 const PORT = process.env.PORT || 3000;
-const User = require('./models/users');
-const Income = require('./models/incomes')
-const Expenses = require('./models/expenses')
 require('./db/db');
 
 app.set('view engine', 'ejs');

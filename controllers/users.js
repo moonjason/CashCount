@@ -24,7 +24,6 @@ router.post('/register',  async (req, res) => {
         const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10)); 
 
         const userDbEntry = {}; 
-
         userDbEntry.username = req.body.username;
         userDbEntry.password = passwordHash; 
         userDbEntry.email = req.body.email; 
@@ -55,7 +54,7 @@ router.post('/login', async (req, res) => {
                 req.session.username = user.username;
                 req.session.logged = true;
                 console.log(req.session);
-                res.redirect('../dash')
+                res.redirect(`../dash/${user._id}`)
             } else {
                 req.session.msg = 'Username or Password is Incorrect'
                 res.redirect('login')
