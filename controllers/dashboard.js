@@ -87,7 +87,11 @@ router.delete('/:id/inc', async (req, res) => {
     }
 })
 
-router.put('/:id/', async (req, res) => {
+router.put('/:id/inc', async (req, res) => {
+
+})
+
+router.put('/:id/exp', async (req, res) => {
 
 })
 

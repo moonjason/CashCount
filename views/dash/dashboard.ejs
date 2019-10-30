@@ -20,8 +20,8 @@
             <% for (let i = 0; i < user.incomes.length; i++) { %>
             <li data-id="<%=user.incomes[i]._id%>"><%=user.incomes[i].description%> <%=user.incomes[i].amount%>
                 <form method="POST" action="/dash/<%=user.incomes[i]._id%>/inc?_method=DELETE"><button type="submit">x</button></form>
-                <button id="edit">Edit</button>
-                <div id="editModal">
+                <button id="edit1">Edit</button>
+                <div id="editModal1">
                     <form action="/dash/<%=user.incomes[i]._id%>/inc?_method=PUT" method="POST">
                         <input type="text" value="<%=user.incomes[i].description%>" name="description">
                         <input type="number" value="<%=user.incomes[i].amount%>" name="amount">
@@ -37,8 +37,8 @@
             <% for (let i = 0; i < user.expenses.length; i++) { %>
             <li data-id="<%=user.expenses[i]._id%>"><%=user.expenses[i].description%> <%=user.expenses[i].amount%>
                 <form method="POST" action="/dash/<%=user.expenses[i]._id%>/exp?_method=DELETE"><button type="submit">x</button></form>
-                <button id="edit">Edit</button>
-                <div id="editModal">
+                <button id="edit2">Edit</button>
+                <div id="editModal2">
                     <form action="/dash/<%=user.expenses[i]._id%>/exp?_method=PUT" method="POST">
                         <input type="text" value="<%=user.expenses[i].description%>" name="description">
                         <input type="number" value="<%=user.expenses[i].amount%>" name="amount">

@@ -35,7 +35,11 @@ li {
     margin-left: 200px; /* Same as the width of the sidenav */
 }
 
-#editModal {
+#editModal1 {
+    display: none;
+}
+
+#editModal2 {
     display: none;
 }
   
