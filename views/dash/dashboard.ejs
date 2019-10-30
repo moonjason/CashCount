@@ -18,14 +18,26 @@
         <ul id="inc">
             <li>Income Item</li>
             <% for (let i = 0; i < user.incomes.length; i++) { %>
-            <li data-id="<%=user.incomes[i]._id%>"><%=user.incomes[i].description%> <%=user.incomes[i].amount%><form method="POST" action="/dash/<%=user.incomes[i]._id%>?_method=DELETE"><button type="submit">X</button></form></li>
+            <li data-id="<%=user.incomes[i]._id%>"><%=user.incomes[i].description%> <%=user.incomes[i].amount%>
+                <form method="POST" action="/dash/<%=user.incomes[i]._id%>/inc?_method=DELETE"><button type="submit">x</button></form>
+                <button id="edit">...</button>
+                <div id="editModal">
+                    <div id="editModalMain">
+                    <form action="/dash/<%=user.incomes[i]._id%>/inc?_method=PUT" method="POST">
+                        <input type="text" value="<%=user.incomes[i].description%>" name="description">
+                        <input type="number" value="<%=user.incomes[i].amount%>" name="amount">
+                        <button>Edit</button>
+                    </form>
+                    </div>
+                </div>
+            </li>
             <% } %>
         </ul>
         <h3>Expense</h3>
         <ul id="exp">
             <li>Expense Item</li>
             <% for (let i = 0; i < user.expenses.length; i++) { %>
-            <li data-id="<%=user.expenses[i]._id%>"><%=user.expenses[i].description%> <%=user.expenses[i].amount%><form method="POST" action="/dash/<%=user.expenses[i]._id%>?_method=DELETE"><button type="submit">X</button></form></li>
+            <li data-id="<%=user.expenses[i]._id%>"><%=user.expenses[i].description%> <%=user.expenses[i].amount%><form method="POST" action="/dash/<%=user.expenses[i]._id%>/exp?_method=DELETE"><button type="submit">x</button></form></li>
             <% } %>
         </ul>
     </div>

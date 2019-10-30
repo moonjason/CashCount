@@ -20,8 +20,8 @@ const inputHandler = () => {
             }
         }) // get call 
         const toJson = await message.json();
-        console.log(toJson)
-        const form = createDeleteForm(toJson);  
+        console.log(toJson, '<--- Add Inc')
+        const form = createDeleteFormInc(toJson);  
 
         const newListItem = document.createElement('LI');
         newListItem.dataset.id = toJson._id
@@ -50,8 +50,8 @@ const inputHandler = () => {
             }
         }) // get call 
         const toJson = await message.json();
-        console.log(toJson)
-        const form = createDeleteForm(toJson);  
+        console.log(toJson, '<---add Exp')
+        const form = createDeleteFormExp(toJson);  
 
         const newListItem = document.createElement('LI');
         newListItem.dataset.id = toJson._id
@@ -65,51 +65,41 @@ const inputHandler = () => {
     })
 }
 
-// const modHandler = () => {
-//     const delIncBtn = document.querySelectorAll('.delInc');
-//     for (let i = 0; i < delIncBtn.length; i++) {
-//         delIncBtn[i].addEventListener('click', async (e) => {
-//         //     const message = await fetch(`http://localhost:3000/dash/${userId}/budget/inc/del`, {
-//         //         method: "DELETE",
-//         //         body: JSON.stringify({
-//         //             index: [i],
-//         //         }),
-//         //         headers: {
-//         //             'Content-Type': 'application/json'
-//         //         }
-//         //     })
-//         //     const toJson = await message.json();
-//         //     console.log(toJson);
-//             console.log(e.target.parentElement.innerText);
-            
-//         })
-//     }
-//         // const message = await fetch(`http://localhost:3000/dash/${userId}/budget/inc/del`, {
-//         //     method: "DELETE",
-//         //     body: JSON.stringify({
-//         //         description: itemDesc.value,
-//         //         amount: itemAmount.value
-//         //     }),
-//         //     headers: {
-//         //         'Content-Type': 'application/json'
-//         //     }
-//         // })
-//         // const toJson = await message.json();
-// }
 
-const createDeleteForm = (obj) => {
+
+const createDeleteFormInc = (obj) => {
     const form = document.createElement('form')
     const btn = document.createElement('button')
     btn.setAttribute('type', 'submit')
     btn.innerText = 'X'
+    form.dataset.id = obj._id
 
     form.setAttribute('method', 'POST')
-    form.setAttribute('action', `/dash/${obj._id}?_method=DELETE`) 
+    form.setAttribute('action', `/dash/${obj._id}/inc?_method=DELETE`) 
 
     // add btn to form
     form.appendChild(btn)
-    
+    // form.onsubmit = onSubmit
     return form;
 }
+
+const createDeleteFormExp = (obj) => {
+    const form = document.createElement('form')
+    const btn = document.createElement('button')
+    btn.setAttribute('type', 'submit')
+    btn.innerText = 'X'
+    form.dataset.id = obj._id
+
+    form.setAttribute('method', 'POST')
+    form.setAttribute('action', `/dash/${obj._id}/exp?_method=DELETE`) 
+
+    // add btn to form
+    form.appendChild(btn)
+    // form.onsubmit = onSubmit
+    return form;
+}
+
+const editModal = document.querySelector('#editModal');
+
 
 inputHandler();

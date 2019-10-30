@@ -35,7 +35,7 @@ router.post('/:id/budget/inc', async (req, res) => {
     user.incomes.push(createdIncome);
     await user.save()
     console.log(user)
-    res.send(user)
+    res.send(createdIncome)
 })
 
 router.post('/:id/budget/exp', async (req, res) => {
@@ -46,12 +46,49 @@ router.post('/:id/budget/exp', async (req, res) => {
     user.expenses.push(createdExpense);
     await user.save()
     console.log(user)
-    res.send(user)
+    res.send(createdExpense)
 })
 
-router.delete('/:id', async (req, res) => {
-    console.log('delete route');
-    
+router.delete('/:id/exp', async (req, res) => {
+    console.log(req.params, 'expense delete route');
+    try {
+        await Expense.findByIdAndRemove(req.params.id);
+        const findUser = await User.findOne({'expenses': req.params.id});
+
+        console.log(findUser, 'foundUser')
+
+        findUser.expenses.remove(req.params.id)
+        await findUser.save()
+        console.log('saved')
+
+        res.redirect(`/dash/${findUser._id}`)
+    } catch(err){
+        console.log(err);
+        res.send(err);
+    }
+})
+
+router.delete('/:id/inc', async (req, res) => {
+    console.log(req.params, 'income delete route');
+    try {
+        await Income.findByIdAndRemove(req.params.id);
+        const findUser = await User.findOne({'incomes': req.params.id});
+
+        console.log(findUser, 'foundUser')
+
+        findUser.incomes.remove(req.params.id)
+        await findUser.save()
+        console.log('saved')
+
+        res.redirect(`/dash/${findUser._id}`)
+    } catch(err){
+        console.log(err);
+        res.send(err);
+    }
+})
+
+router.put('/:id/', async (req, res) => {
+
 })
 
 module.exports = router;
