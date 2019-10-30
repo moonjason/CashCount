@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+li {
+    display: flex;
+}
+
 .sidenav {
     height: 100%;
     width: 200px;

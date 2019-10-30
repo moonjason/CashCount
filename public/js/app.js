@@ -52,13 +52,20 @@ const inputHandler = () => {
         const toJson = await message.json();
         console.log(toJson, '<---add Exp')
         const form = createDeleteFormExp(toJson);  
-
+        const edit = createEditFormExp(toJson);
         const newListItem = document.createElement('LI');
         newListItem.dataset.id = toJson._id
         const listContent = await document.createTextNode(`${itemDesc.value} ${itemAmount.value.toString()}`);
         newListItem.appendChild(listContent);
         newListItem.appendChild(form);
+        newListItem.appendChild(edit);
+        
+        const editBtn = document.createElement('button')
+        editBtn.innerHTML = 'Edit';
+        newListItem.appendChild(editBtn);
+
         expenseList.appendChild(newListItem);   
+
 
         itemDesc.value = ''
         itemAmount.value = '';
@@ -98,6 +105,37 @@ const createDeleteFormExp = (obj) => {
     // form.onsubmit = onSubmit
     return form;
 }
+
+const createEditFormExp = (obj) => {
+    const div = document.createElement('div');
+    const form = document.createElement('form');
+    const inputDesc = document.createElement('input');
+    const inputAmt = document.createElement('input');
+    const editBtn = document.createElement('button');
+
+    editBtn.innerHTML = 'Done';
+
+    form.setAttribute('method', 'POST')
+    form.setAttribute('action', `/dash/${obj._id}/exp?_method=PUT`) 
+
+    inputAmt.setAttribute('type', 'number');
+    inputAmt.setAttribute('value', obj.amount);
+    inputAmt.setAttribute('name', 'amount');
+
+    inputDesc.setAttribute('type', 'text');
+    inputDesc.setAttribute('value', obj.description);
+    inputDesc.setAttribute('name', 'description');
+
+    div.setAttribute('id', 'editModal'); 
+    
+    form.appendChild(inputDesc)
+    form.appendChild(inputAmt)
+    form.appendChild(editBtn)
+    div.appendChild(form)
+
+    return div;
+}
+
 
 const editModal = document.querySelector('#editModal');
 
