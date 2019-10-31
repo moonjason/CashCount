@@ -1,0 +1,7 @@
+<%- include('../partials/header') %>
+    <form action="/dash/<%=user.incomes[i]._id%>/settings?_method=PUT" method="POST">
+        <input type="text" value="<%=user.incomes[i].description%>" name="description">
+        <input type="number" value="<%=user.incomes[i].amount%>" name="amount">
+        <button type="submit">Done</button>
+    </form>
+<%- include('../partials/footer') %>

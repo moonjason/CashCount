@@ -1,5 +1,9 @@
 const userId = window.location.href.split('/')[window.location.href.split('/').length - 1];
 
+if (document.getElementById('addInc').value === '' || document.getElementById('addExp').value === '') {
+
+}
+
 const inputHandler = () => {
     const itemDesc = document.getElementById('itemDesc');
     const itemAmount = document.getElementById('itemAmount');
@@ -78,7 +82,6 @@ const inputHandler = () => {
 
         itemDesc.value = '';
         itemAmount.value = '';
-        location.reload();
     })
 
     console.log(document.querySelectorAll('.editInc'))
@@ -222,5 +225,3 @@ const createEditFormExp = (obj) => {
 }
 
 inputHandler();
-
-
