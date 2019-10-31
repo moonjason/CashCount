@@ -34,8 +34,10 @@ const inputHandler = () => {
         newListItem.appendChild(listContent);
         newListItem.appendChild(form);
 
+        const num = document.querySelectorAll('.editInc');
+
         const editBtn = document.createElement('button')
-        editBtn.setAttribute('class', 'editInc');
+        editBtn.setAttribute('class', `editInc ${num.length}`);
         editBtn.innerHTML = 'Edit';
         newListItem.appendChild(editBtn);
         newListItem.appendChild(edit);
@@ -72,8 +74,10 @@ const inputHandler = () => {
         newListItem.appendChild(listContent);
         newListItem.appendChild(form);
         
+        const num = document.querySelectorAll('.editExp');
+
         const editBtn = document.createElement('button')
-        editBtn.setAttribute('class', 'editExp');
+        editBtn.setAttribute('class', `editExp ${num.length}`);
         editBtn.innerHTML = 'Edit';
         newListItem.appendChild(editBtn);
         newListItem.appendChild(edit);
@@ -183,7 +187,8 @@ const createEditFormInc = (obj) => {
     inputDesc.setAttribute('value', obj.description);
     inputDesc.setAttribute('name', 'description');
 
-    div.setAttribute('class', 'editModalInc'); 
+    const num = document.querySelectorAll('.editModalInc');
+    div.setAttribute('class', `editModalInc ${num.length}`); 
 
     form.appendChild(inputDesc)
     form.appendChild(inputAmt)
@@ -214,7 +219,8 @@ const createEditFormExp = (obj) => {
     inputDesc.setAttribute('value', obj.description);
     inputDesc.setAttribute('name', 'description');
 
-    div.setAttribute('class', 'editModalExp'); 
+    const num = document.querySelectorAll('.editModalExp');
+    div.setAttribute('class', `editModalExp ${num.length}`); 
     
     form.appendChild(inputDesc)
     form.appendChild(inputAmt)
