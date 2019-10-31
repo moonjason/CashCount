@@ -36,9 +36,24 @@ router.get('/:id', async (req, res) => {
         
             let d = new Date(); 
             let currentMonth = month[d.getMonth()];
+
+        const findBudget = () => {
+            let totalInc = 0;
+            let totalExp = 0;
+            for (let i = 0; i < user.incomes.length; i++) {
+                totalInc += user.incomes[i].amount; 
+            }
+            for (let i = 0; i < user.expenses.length; i++) {
+                totalExp += user.expenses[i].amount;
+            }
+            return totalInc - totalExp;
+        }
+        const budget = findBudget();
+
         res.render('dash/dashboard', {
             user,
             currentMonth,
+            budget,
         })// with the sessions current shit 
     } catch (err) {
         console.log(err);
