@@ -22,23 +22,25 @@ const inputHandler = () => {
         const toJson = await message.json();
         console.log(toJson, '<--- Add Inc')
         const form = createDeleteFormInc(toJson);  
-        const edit = createEditFormExp(toJson);
+        const edit = createEditFormInc(toJson);
 
         const newListItem = document.createElement('LI');
         newListItem.dataset.id = toJson._id
         const listContent = await document.createTextNode(`${itemDesc.value} ${itemAmount.value.toString()}`);
         newListItem.appendChild(listContent);
         newListItem.appendChild(form);
-        newListItem.appendChild(edit);
 
         const editBtn = document.createElement('button')
-        editBtn.innerHTML = 'Edit1';
+        editBtn.setAttribute('class', 'editInc');
+        editBtn.innerHTML = 'Edit';
         newListItem.appendChild(editBtn);
+        newListItem.appendChild(edit);
 
         incomeList.appendChild(newListItem);
 
         itemDesc.value = '';
         itemAmount.value = '';
+        location.reload();
     })
 
     document.getElementById('addExp').addEventListener('click', async (e) => {
@@ -65,17 +67,62 @@ const inputHandler = () => {
         const listContent = await document.createTextNode(`${itemDesc.value} ${itemAmount.value.toString()}`);
         newListItem.appendChild(listContent);
         newListItem.appendChild(form);
-        newListItem.appendChild(edit);
         
         const editBtn = document.createElement('button')
-        editBtn.innerHTML = 'Edit2';
+        editBtn.setAttribute('class', 'editExp');
+        editBtn.innerHTML = 'Edit';
         newListItem.appendChild(editBtn);
+        newListItem.appendChild(edit);
 
         expenseList.appendChild(newListItem);   
 
-        itemDesc.value = ''
+        itemDesc.value = '';
         itemAmount.value = '';
+        location.reload();
     })
+
+    console.log(document.querySelectorAll('.editInc'))
+    const allIncEdits = document.querySelectorAll('.editInc');
+    allIncEdits.forEach(edit => {
+        edit.addEventListener('click', (e) => {
+            const index = edit.classList[1]
+            const modal = document.getElementsByClassName(`editModalInc ${index}`);
+            modal[0].style.display = 'block';
+        })
+    })
+
+    console.log(document.querySelectorAll(".editExp"))
+    const allExpEdits = document.querySelectorAll('.editExp');
+    allExpEdits.forEach(edit => {
+        edit.addEventListener('click', (e) => {
+            const index = edit.classList[1]
+            const modal = document.getElementsByClassName(`editModalExp ${index}`);
+            modal[0].style.display = 'block';
+        })
+    })
+
+    console.log(document.querySelectorAll('.doneInc'))
+    const allIncDones = document.querySelectorAll('.doneInc');
+    allIncDones.forEach(done=> {
+        done.addEventListener('click', () => {
+            const index = done.classList[1]
+            const modal = document.getElementsByClassName(`editModalInc ${index}`);
+            console.log(modal)
+            modal[0].style.display = 'none';
+        }) 
+    })
+
+    console.log(document.querySelectorAll('.doneExp'))
+    const allExpDones = document.querySelectorAll('.doneExp');
+    allExpDones.forEach(done=> {
+        done.addEventListener('click', () => {
+            const index = done.classList[1]
+            const modal = document.getElementsByClassName(`editModalExp ${index}`);
+            console.log(modal)
+            modal[0].style.display = 'none';
+        }) 
+    })
+
 }
 
 
@@ -119,10 +166,11 @@ const createEditFormInc = (obj) => {
     const inputAmt = document.createElement('input');
     const editBtn = document.createElement('button');
 
+    editBtn.setAttribute('id', 'done1');
     editBtn.innerHTML = 'Done';
 
     form.setAttribute('method', 'POST')
-    form.setAttribute('action', `/dash/${obj._id}/exp?_method=PUT`) 
+    form.setAttribute('action', `/dash/${obj._id}/inc?_method=PUT`) 
 
     inputAmt.setAttribute('type', 'number');
     inputAmt.setAttribute('value', obj.amount);
@@ -132,8 +180,8 @@ const createEditFormInc = (obj) => {
     inputDesc.setAttribute('value', obj.description);
     inputDesc.setAttribute('name', 'description');
 
-    div.setAttribute('id', 'editModal1'); 
-    
+    div.setAttribute('class', 'editModalInc'); 
+
     form.appendChild(inputDesc)
     form.appendChild(inputAmt)
     form.appendChild(editBtn)
@@ -149,6 +197,7 @@ const createEditFormExp = (obj) => {
     const inputAmt = document.createElement('input');
     const editBtn = document.createElement('button');
 
+    editBtn.setAttribute('id', 'done2');
     editBtn.innerHTML = 'Done';
 
     form.setAttribute('method', 'POST')
@@ -162,7 +211,7 @@ const createEditFormExp = (obj) => {
     inputDesc.setAttribute('value', obj.description);
     inputDesc.setAttribute('name', 'description');
 
-    div.setAttribute('id', 'editModal2'); 
+    div.setAttribute('class', 'editModalExp'); 
     
     form.appendChild(inputDesc)
     form.appendChild(inputAmt)
@@ -172,9 +221,6 @@ const createEditFormExp = (obj) => {
     return div;
 }
 
-
-
-const editModal = document.querySelector('#editModal');
-
-
 inputHandler();
+
+

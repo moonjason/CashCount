@@ -1,12 +1,13 @@
 <%- include('../partials/header') %>
 <script src="../js/app.js" defer></script>
 <div class="sidenav">
-    <a href="#">About</a>
+    <a href="#">Help</a>
     <a href="#">Settings</a>
     <a href="/dash/logout">Logout</a>
 </div>
 <div class="main">
-    <h1>Dashboard</h1>
+    <h1>Hello, <%=user.username%></h1>
+    <h3>Available budget for <%=currentMonth%> </h3>
     <div id="calculator">
         <input id="itemDesc" type="text" name="description" placeholder="Description">
         <input id="itemAmount" type="number" name="amount" placeholder="Amount">
@@ -16,16 +17,15 @@
     <div id="dash">
         <h3>Income</h3>
         <ul id="inc">
-            <li>Income Item</li>
             <% for (let i = 0; i < user.incomes.length; i++) { %>
             <li data-id="<%=user.incomes[i]._id%>"><%=user.incomes[i].description%> <%=user.incomes[i].amount%>
                 <form method="POST" action="/dash/<%=user.incomes[i]._id%>/inc?_method=DELETE"><button type="submit">x</button></form>
-                <button id="edit1">Edit</button>
-                <div id="editModal1">
+                <button class="editInc <%=[i]%>">Edit</button>
+                <div class="editModalInc <%=[i]%>">
                     <form action="/dash/<%=user.incomes[i]._id%>/inc?_method=PUT" method="POST">
                         <input type="text" value="<%=user.incomes[i].description%>" name="description">
                         <input type="number" value="<%=user.incomes[i].amount%>" name="amount">
-                        <button>Done</button>
+                        <button class="doneInc <%=[i]%>">Done</button>
                     </form>
                 </div>
             </li>
@@ -33,16 +33,15 @@
         </ul>
         <h3>Expense</h3>
         <ul id="exp">
-            <li>Expense Item</li>
             <% for (let i = 0; i < user.expenses.length; i++) { %>
             <li data-id="<%=user.expenses[i]._id%>"><%=user.expenses[i].description%> <%=user.expenses[i].amount%>
                 <form method="POST" action="/dash/<%=user.expenses[i]._id%>/exp?_method=DELETE"><button type="submit">x</button></form>
-                <button id="edit2">Edit</button>
-                <div id="editModal2">
+                <button class="editExp <%=[i]%>">Edit</button>
+                <div class="editModalExp <%=[i]%>">
                     <form action="/dash/<%=user.expenses[i]._id%>/exp?_method=PUT" method="POST">
                         <input type="text" value="<%=user.expenses[i].description%>" name="description">
                         <input type="number" value="<%=user.expenses[i].amount%>" name="amount">
-                        <button>Done</button>
+                        <button class="doneExp <%=[i]%>">Done</button>
                     </form>
                 </div>
             </li>
