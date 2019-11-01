@@ -1,9 +1,14 @@
 <%- include('../partials/header') %>
-    <h4>Login</h4>
+<div class="login-container">
+    <h4 class="reg-logo">CashCount</h4>
+    <h4><u>Login</u></h4>
     <%= msg %>
     <form action="/auth/login" method="POST">
+        <p>Username or E-mail</p>
         <input type="text" name="username" placeholder="username or e-mail"><br>
+        <p>Password</p>
         <input type="password" name="password" placeholder="password"><br>
         <button type="submit">Login</button>
     </form>
+</div>
 <%- include('../partials/footer') %> 

@@ -12,7 +12,7 @@ router.get('/logout', (req, res) => {
         err 
             ? console.log(err)
             : res.render('home',{
-                logOut: 'You have successfully logged out'
+                logOut: 'You have successfully logged out',
             })
     })
 })

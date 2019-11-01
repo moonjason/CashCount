@@ -1,14 +1,16 @@
 <%- include('../partials/header') %>
 <%- include('../partials/navbar') %>
 <div class="main">
-    <h2>Settings</h2>
-    <h3>Change Password</h3>
-    <%= wrongPass %>
-    <form action="/dash/<%=user._id%>/settings?_method=PUT" method="POST">
-        <input type="password" name="passwordOld" placeholder="Old Password">
-        <input type="password" value="" name="password" placeholder="New Password">
-        <input type="password" value="" name="passwordConfirm" placeholder="Confirm Password">
-        <button type="submit">Confirm</button>
-    </form>
+    <div class="container">
+        <h2><u>Settings</u></h2>
+        <h5>Change Password</h5>
+        <%= wrongPass %>
+        <form action="/dash/<%=user._id%>/settings?_method=PUT" method="POST">
+            <input type="password" name="passwordOld" placeholder="Old Password">
+            <input type="password" value="" name="password" placeholder="New Password">
+            <input type="password" value="" name="passwordConfirm" placeholder="Confirm Password">
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
 </div>
 <%- include('../partials/footer') %>

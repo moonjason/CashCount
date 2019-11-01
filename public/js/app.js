@@ -26,7 +26,7 @@ const inputHandler = () => {
 
         const newListItem = document.createElement('LI');
         newListItem.dataset.id = toJson._id
-        const listContent = await document.createTextNode(`${itemDesc.value} ${itemAmount.value.toString()}`);
+        const listContent = await document.createTextNode(`${itemDesc.value} \u00A0\u00A0\u00A0\u00A0 ${itemAmount.value.toString()}`);
         newListItem.appendChild(listContent);
         newListItem.appendChild(form);
 
@@ -71,7 +71,7 @@ const inputHandler = () => {
         const editForm = createEditFormExp(toJson);
         const newListItem = document.createElement('LI');
         newListItem.dataset.id = toJson._id
-        const listContent = await document.createTextNode(`${itemDesc.value} ${itemAmount.value.toString()}`);
+        const listContent = await document.createTextNode(`${itemDesc.value} \u00A0\u00A0\u00A0\u00A0 ${itemAmount.value.toString()}`);
         newListItem.appendChild(listContent);
         newListItem.appendChild(delForm);
         
