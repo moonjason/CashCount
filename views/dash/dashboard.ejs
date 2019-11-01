@@ -1,51 +1,58 @@
 <%- include('../partials/header') %>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-<script src="../js/app.js" defer></script>
-<%- include('../partials/navbar') %>
-<div class="main">
-    <div class="container">
-    <h1><strong><u>Hello, <%=user.username%></u></strong></h1>
-    <h3>Available budget for <%=currentMonth%>: <strong>$<span id="budget"><%=parseFloat(budget).toFixed(2)%></span></strong></h3>
-    <div id="calculator">
-        <input id="itemDesc" type="text" name="description" placeholder="Description">
-        <input id="itemAmount" type="number" name="amount" placeholder="Amount" step=".01">
-        <button id="addInc" type="submit" value="+">+</button>
-        <button id="addExp" type="submit" value="-">-</button>
-    </div>
-    <div id="dash">
-        <h3><u>Income</u></h3>
-        <ul id="inc">
-            <% for (let i = 0; i < user.incomes.length; i++) { %>
-            <li data-id="<%=user.incomes[i]._id%>"><%=user.incomes[i].description%> &nbsp;&nbsp;&nbsp;&nbsp; <%=user.incomes[i].amount%>
-                <form method="POST" action="/dash/<%=user.incomes[i]._id%>/inc?_method=DELETE"><button type="submit">x</button></form>
-                <button class="editInc <%=[i]%>">Edit</button>
-                <div class="editModalInc <%=[i]%> animated fadeInLeft faster">
-                    <form action="/dash/<%=user.incomes[i]._id%>/inc?_method=PUT" method="POST">
-                        <input type="text" value="<%=user.incomes[i].description%>" name="description">
-                        <input type="number" value="<%=user.incomes[i].amount%>" name="amount" step=".01">
-                        <button class="doneInc <%=[i]%>">Done</button>
-                    </form>
-                </div>
-            </li>
-            <% } %>
-        </ul>
-        <h3><u>Expense</u></h3>
-        <ul id="exp">
-            <% for (let i = 0; i < user.expenses.length; i++) { %>
-            <li data-id="<%=user.expenses[i]._id%>"><%=user.expenses[i].description%> &nbsp;&nbsp;&nbsp;&nbsp; <%=user.expenses[i].amount%>
-                <form method="POST" action="/dash/<%=user.expenses[i]._id%>/exp?_method=DELETE"><button type="submit">x</button></form>
-                <button class="editExp <%=[i]%>">Edit</button>
-                <div class="editModalExp <%=[i]%> animated fadeInLeft faster">
-                    <form action="/dash/<%=user.expenses[i]._id%>/exp?_method=PUT" method="POST">
-                        <input type="text" value="<%=user.expenses[i].description%>" name="description">
-                        <input type="number" value="<%=user.expenses[i].amount%>" name="amount" step=".01">
-                        <button class="doneExp <%=[i]%>">Done</button>
-                    </form>
-                </div>
-            </li>
-            <% } %>
-        </ul>
-    </div>
+<div id="bg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="../js/app.js" defer></script>
+    <%- include('../partials/navbar') %>
+    <div class="main">
+        <div class="container">
+            <h1><strong><u>Hello, <%=user.username%></u></strong></h1>
+            <h3>Available budget for <%=currentMonth%>: <strong>$<span
+                        id="budget"><%=parseFloat(budget).toFixed(2)%></span></strong></h3>
+            <div id="calculator">
+                <input id="itemDesc" type="text" name="description" placeholder="Description">
+                <input id="itemAmount" type="number" name="amount" placeholder="Amount" step=".01">
+                <button id="addInc" type="submit" value="+">+</button>
+                <button id="addExp" type="submit" value="-">-</button>
+            </div>
+            <div id="dash">
+                <h3><u>Income</u></h3>
+                <ul id="inc">
+                    <% for (let i = 0; i < user.incomes.length; i++) { %>
+                    <li data-id="<%=user.incomes[i]._id%>"><%=user.incomes[i].description%> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <%=user.incomes[i].amount%>
+                        <form method="POST" action="/dash/<%=user.incomes[i]._id%>/inc?_method=DELETE"><button
+                                type="submit">x</button></form>
+                        <button class="editInc <%=[i]%>">Edit</button>
+                        <div class="editModalInc <%=[i]%> animated fadeInLeft faster">
+                            <form action="/dash/<%=user.incomes[i]._id%>/inc?_method=PUT" method="POST">
+                                <input type="text" value="<%=user.incomes[i].description%>" name="description">
+                                <input type="number" value="<%=user.incomes[i].amount%>" name="amount" step=".01">
+                                <button class="doneInc <%=[i]%>">Done</button>
+                            </form>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+                <h3><u>Expense</u></h3>
+                <ul id="exp">
+                    <% for (let i = 0; i < user.expenses.length; i++) { %>
+                    <li data-id="<%=user.expenses[i]._id%>"><%=user.expenses[i].description%> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <%=user.expenses[i].amount%>
+                        <form method="POST" action="/dash/<%=user.expenses[i]._id%>/exp?_method=DELETE"><button
+                                type="submit">x</button></form>
+                        <button class="editExp <%=[i]%>">Edit</button>
+                        <div class="editModalExp <%=[i]%> animated fadeInLeft faster">
+                            <form action="/dash/<%=user.expenses[i]._id%>/exp?_method=PUT" method="POST">
+                                <input type="text" value="<%=user.expenses[i].description%>" name="description">
+                                <input type="number" value="<%=user.expenses[i].amount%>" name="amount" step=".01">
+                                <button class="doneExp <%=[i]%>">Done</button>
+                            </form>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <%- include('../partials/footer') %>

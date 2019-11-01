@@ -12,6 +12,10 @@ li {
 }
 
 body {
+    background-color: whitesmoke;
+}
+
+button {
     background-color: white;
 }
 
