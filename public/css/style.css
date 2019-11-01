@@ -48,6 +48,8 @@ form input[type=email] {
     width: 67%;
     margin-left: 320px;
     margin-top: 3%;
+    background-color: white;
+    box-shadow: 0 0 4px 5px rgba(0, 0, 0, 0.3);
 }
 
 .form {
@@ -64,7 +66,7 @@ form input[type=email] {
 }
 
 .form button {
-    width: 13%;
+    width: 17%;
 }
 
 .container {

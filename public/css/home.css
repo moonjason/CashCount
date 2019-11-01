@@ -10,7 +10,6 @@ html {
 body {
     border: .5rem solid black;
     margin: 2% 20% 2% 20%;
-    padding-bottom: 2%;
     overflow: hidden;
     background-color: whitesmoke;
 }
