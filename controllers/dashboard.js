@@ -17,6 +17,13 @@ router.get('/logout', (req, res) => {
     })
 })
 
+router.get('/help', async (req, res) => {
+    const user = await User.findOne({'username': req.session.username})
+    res.render('dash/help', {
+        user,
+    });
+})
+
 router.get('/:id', async (req, res) => {
     try {
         const user = await User.findOne({'_id': req.params.id})
@@ -165,8 +172,9 @@ router.put('/:id/settings', async (req, res) => {
         if (bcrypt.compareSync(req.body.passwordOld, foundUser.password)) {
             if (req.body.password === req.body.passwordConfirm) {
                 req.session.wrongPass = 'Password updated successfully';
-                const newPasswordHash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+                const newPasswordHash = await bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
                 foundUser.password = newPasswordHash; 
+                foundUser.save();
                 res.render('dash/settings', {
                     user: foundUser,
                     wrongPass: req.session.wrongPass,

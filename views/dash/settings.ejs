@@ -2,12 +2,15 @@
 <%- include('../partials/navbar') %>
 <div class="main">
     <div class="container">
-        <h2><u>Settings</u></h2>
+        <h2><strong><u>Settings</u></strong></h2>
         <h5>Change Password</h5>
-        <%= wrongPass %>
-        <form action="/dash/<%=user._id%>/settings?_method=PUT" method="POST">
+        <strong><i><%= wrongPass %></i></strong>
+        <form class="form" action="/dash/<%=user._id%>/settings?_method=PUT" method="POST">
+            <p>Old Password</p>
             <input type="password" name="passwordOld" placeholder="Old Password">
+            <p>New Password</p>
             <input type="password" value="" name="password" placeholder="New Password">
+            <p>Confirm New Password</p>
             <input type="password" value="" name="passwordConfirm" placeholder="Confirm Password">
             <button type="submit">Confirm</button>
         </form>

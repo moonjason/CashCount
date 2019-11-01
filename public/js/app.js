@@ -25,7 +25,8 @@ const inputHandler = () => {
         const editForm = createEditFormInc(toJson);
 
         const newListItem = document.createElement('LI');
-        newListItem.dataset.id = toJson._id
+        newListItem.dataset.id = toJson._id;
+        newListItem.setAttribute('class', 'animated slideInUp fast');
         const listContent = await document.createTextNode(`${itemDesc.value} \u00A0\u00A0\u00A0\u00A0 ${itemAmount.value.toString()}`);
         newListItem.appendChild(listContent);
         newListItem.appendChild(form);
@@ -88,6 +89,7 @@ const inputHandler = () => {
         })
         newListItem.appendChild(editBtn);
         newListItem.appendChild(editForm);
+        newListItem.setAttribute('class', 'animated slideInUp fast');
 
         expenseList.appendChild(newListItem);   
 
@@ -197,7 +199,7 @@ const createEditFormInc = (obj) => {
     inputDesc.setAttribute('name', 'description');
 
     const num = document.querySelectorAll('.editModalInc');
-    div.setAttribute('class', `editModalInc ${num.length}`); 
+    div.setAttribute('class', `editModalInc ${num.length} animated fadeInLeft faster`); 
 
     form.appendChild(inputDesc)
     form.appendChild(inputAmt)
@@ -231,7 +233,7 @@ const createEditFormExp = (obj) => {
     inputDesc.setAttribute('name', 'description');
 
     const numModal = document.querySelectorAll('.editModalExp');
-    div.setAttribute('class', `editModalExp ${numModal.length}`); 
+    div.setAttribute('class', `editModalExp ${numModal.length} animated fadeInLeft faster`); 
     
     form.appendChild(inputDesc)
     form.appendChild(inputAmt)

@@ -27,6 +27,42 @@ form {
     padding-left: 2%;
 }
 
+form input[type=text] {
+    border: .2rem solid darkblue;
+}
+form input[type=number] {
+    border: .2rem solid darkblue;
+}
+form input[type=password] {
+    border: .2rem solid darkblue;
+}
+form input[type=email] {
+    border: .2rem solid darkblue;
+}
+.main {
+    border: .5rem solid black;
+    width: 67%;
+    margin-left: 320px;
+    margin-top: 3%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form p {
+    margin-bottom: 0;
+}
+
+.form input {
+    width: 20%;
+}
+
+.form button {
+    width: 13%;
+}
+
 .container {
     margin-top: 2%;
 }
@@ -53,10 +89,6 @@ form {
   
 .sidenav a:hover {
     color: #f1f1f1;
-}
-
-.main {
-    margin-left: 200px; /* Same as the width of the sidenav */
 }
 
 .editModalExp {
@@ -106,4 +138,16 @@ form {
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
      .sidenav a {font-size: 18px;}
+}
+
+@media screen and (max-width: 540px) {
+    .reg-logo {font-size: 4rem;}
+}
+
+@media screen and (max-width: 1006px) {
+    .main {margin-left: 195px;}
+    .main {border: none;}
+    li {flex-direction: column;}
+    .editInc {width: fit-content;}
+    .editExp {width: fit-content;}
 }

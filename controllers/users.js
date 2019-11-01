@@ -11,44 +11,62 @@ router.get('/register', (req, res) => {
 
 router.get('/login', (req, res) => {
     res.render('auth/login', {
-        msg: req.session.msg, 
+        msg: req.session.msg,
         logOut: req.session.logOutMsg,
     })
 })
 // registration 
 // login
-router.post('/register',  async (req, res) => {
-    if (req.body.password1 === req.body.password2) {
-        req.session.msg = '';
-        const password = req.body.password2;
-        const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10)); 
+router.post('/register', async (req, res) => {
+    try {
+        const foundUsername = await User.findOne({ 'username': req.body.username });
+        const foundEmail = await User.findOne({ 'email': req.body.email });
+        if (req.body.password1 === req.body.password2) {
+            if (!foundUsername) {
+                if (!foundEmail) {
+                    req.session.msg = '';
+                    const password = req.body.password2;
+                    const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-        const userDbEntry = {}; 
-        userDbEntry.username = req.body.username;
-        userDbEntry.password = passwordHash; 
-        userDbEntry.email = req.body.email; 
+                    const userDbEntry = {};
+                    userDbEntry.username = req.body.username;
+                    userDbEntry.password = passwordHash;
+                    userDbEntry.email = req.body.email;
 
-        const createdUser = await User.create(userDbEntry);
-        console.log(createdUser);
-        req.session.username = createdUser.eventNames;
-        req.session.logged = true; 
+                    const createdUser = await User.create(userDbEntry);
+                    console.log(createdUser);
+                    req.session.username = createdUser.eventNames;
+                    req.session.logged = true;
 
-        res.redirect(`../dash/${createdUser._id}`); //render req.session.username's items?? 
-    } else {
-        req.session.msg = 'Passwords do not match'
-        res.redirect('register')
+                    res.redirect(`../dash/${createdUser._id}`);
+                } else {
+                    req.session.msg = 'Email already exists'
+                    res.redirect('register');
+                }
+            } else {
+                req.session.msg = 'Username already exists'
+                res.redirect('register')
+            }
+        } else {
+            req.session.msg = 'Passwords do not match'
+            res.redirect('register')
+        }
+    } catch (err) {
+        console.log(err);
+        res.send(err);
     }
+
 })
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({username: req.body.username}) || {password: ""}
-        const userEmail = await User.findOne({email: req.body.username}) || {password: ""}
+        const user = await User.findOne({ username: req.body.username }) || { password: "" }
+        const userEmail = await User.findOne({ email: req.body.username }) || { password: "" }
         // if User.findOne returns null/undefined we'll catch an error
         console.log(userEmail)
         if (req.body.username === user.username || req.body.username === userEmail.email) {
             // if there is a username... compare their passwords 
-            if(bcrypt.compareSync(req.body.password, user.password) || bcrypt.compareSync(req.body.password, userEmail.password)){
+            if (bcrypt.compareSync(req.body.password, user.password) || bcrypt.compareSync(req.body.password, userEmail.password)) {
                 //start sesh
                 req.session.msg = '';
                 // if there are no failed attempts, there is no message
@@ -56,7 +74,7 @@ router.post('/login', async (req, res) => {
                 req.session.username = user.username;
                 req.session.logged = true;
                 console.log(req.session);
-                if(user.password !== "") {
+                if (user.password !== "") {
                     res.redirect(`/dash/${user._id}`)
                 } else {
                     res.redirect(`/dash/${userEmail._id}`)
@@ -69,7 +87,7 @@ router.post('/login', async (req, res) => {
             req.session.msg = 'Username/E-mail or Password is Incorrect'
             res.redirect('/auth/login');
         }
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         res.send(err);
     }
