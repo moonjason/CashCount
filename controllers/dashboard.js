@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
     try {
         const user = await User.findOne({'_id': req.params.id})
             .populate('incomes').populate('expenses')
-        console.log(user);
+    
         let month = new Array();
             month[0] = "January"; 
             month[1] = "February"; 

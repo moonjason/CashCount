@@ -5,7 +5,7 @@
     <%- include('../partials/navbar') %>
     <div class="main">
         <div class="container">
-            <h1><strong><u>Hello, <%=user.username%></u></strong></h1>
+            <h1><strong><u>Hello, <%=user.username[0].toUpperCase()%><%= user.username.substring(1) %></u></strong></h1>
             <h3>Available budget for <%=currentMonth%>: <strong>$<span
                         id="budget"><%=parseFloat(budget).toFixed(2)%></span></strong></h3>
             <div id="calculator">

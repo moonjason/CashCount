@@ -8,6 +8,9 @@ const inputHandler = () => {
     const expenseList = document.getElementById('exp');
 
     document.getElementById('addInc').addEventListener('click', async (e) => {
+        if (document.getElementById('itemAmount').value.length === 0) {
+            return; 
+        }
         console.log(budget)
         const message = await fetch(`http://localhost:3000/dash/${userId}/budget/inc`, {
             method: "POST",
@@ -54,6 +57,10 @@ const inputHandler = () => {
     })
 
     document.getElementById('addExp').addEventListener('click', async (e) => {
+        if (document.getElementById('itemAmount').value.length === 0) {
+            return; 
+        }
+
         const url = `http://localhost:3000/dash/${userId}/budget/exp`
 
         const message = await fetch(url, {

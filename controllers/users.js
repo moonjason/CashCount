@@ -19,8 +19,8 @@ router.get('/login', (req, res) => {
 // login
 router.post('/register', async (req, res) => {
     try {
-        const foundUsername = await User.findOne({ 'username': req.body.username });
-        const foundEmail = await User.findOne({ 'email': req.body.email });
+        const foundUsername = await User.findOne({ 'username': req.body.username.toLowerCase() });
+        const foundEmail = await User.findOne({ 'email': req.body.email.toLowerCase() });
         if (req.body.password1 === req.body.password2) {
             if (!foundUsername) {
                 if (!foundEmail) {
@@ -29,9 +29,9 @@ router.post('/register', async (req, res) => {
                     const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
                     const userDbEntry = {};
-                    userDbEntry.username = req.body.username;
+                    userDbEntry.username = req.body.username.toLowerCase();
                     userDbEntry.password = passwordHash;
-                    userDbEntry.email = req.body.email;
+                    userDbEntry.email = req.body.email.toLowerCase();
 
                     const createdUser = await User.create(userDbEntry);
                     console.log(createdUser);
@@ -60,11 +60,11 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username }) || { password: "" }
-        const userEmail = await User.findOne({ email: req.body.username }) || { password: "" }
+        const user = await User.findOne({ username: req.body.username.toLowerCase() }) || { password: "" }
+        const userEmail = await User.findOne({ email: req.body.username.toLowerCase() }) || { password: "" }
         // if User.findOne returns null/undefined we'll catch an error
         console.log(userEmail)
-        if (req.body.username === user.username || req.body.username === userEmail.email) {
+        if (req.body.username.toLowerCase() === user.username || req.body.username.toLowerCase() === userEmail.email) {
             // if there is a username... compare their passwords 
             if (bcrypt.compareSync(req.body.password, user.password) || bcrypt.compareSync(req.body.password, userEmail.password)) {
                 //start sesh
