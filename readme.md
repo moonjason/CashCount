@@ -7,6 +7,7 @@ Online web application for keeping track of one's funds!
 - Dynamic Income and Expense logging
 - F.A.Q.
 - Password Change
+- Mobile Responsive
 
 Technologies used: JavaScript, Node, Express, MongoDB, Mongoose, Embedded JavaScript(EJS), CSS, Animate, and Skeleton. 
 
