@@ -17,8 +17,8 @@ router.get('/logout', (req, res) => {
     })
 })
 
-router.get('/help', async (req, res) => {
-    const user = await User.findOne({'username': req.session.username})
+router.get('/:id/help', async (req, res) => {
+    const user = await User.findById(req.params.id)
     res.render('dash/help', {
         user,
     });
