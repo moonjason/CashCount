@@ -1,5 +1,7 @@
 <%- include('../partials/header') %> 
-    <h4>Registration</h4>
+<div class="reg-container">
+    <h4 class="reg-logo">CashCount</h4>
+    <h4 class="reg-title">Registration</h4>
     <%= msg %> 
     <form action="/auth/register" method="POST">
         <input type="text" name="username" placeholder="username"><br>
@@ -8,4 +10,5 @@
         <input type="password" name="password2" placeholder="confirm password"><br>
         <button type="submit">Register</button>
     </form>
+</div>
 <%- include('../partials/footer') %>

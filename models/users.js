@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    password: String,
+    username: {type: String, require: true, unique: true},
+    email: {type: String, require: true},
+    password: {type: String, require: true},
     incomes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Income',
@@ -13,8 +13,5 @@ const userSchema = new mongoose.Schema({
         ref: 'Expense',
     }]
 })
-
-
-// add require, unique 
 
 module.exports = mongoose.model('User', userSchema);

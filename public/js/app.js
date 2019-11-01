@@ -47,8 +47,7 @@ const inputHandler = () => {
 
         incomeList.appendChild(newListItem);
 
-        document.getElementById('budget').innerText = parseInt(document.getElementById('budget').innerText) + parseInt(itemAmount.value);
-
+        document.getElementById('budget').innerText = (parseFloat(document.getElementById('budget').innerText) + parseFloat(itemAmount.value)).toFixed(2)
         itemDesc.value = '';
         itemAmount.value = '';
     })
@@ -56,8 +55,6 @@ const inputHandler = () => {
     document.getElementById('addExp').addEventListener('click', async (e) => {
         const url = `http://localhost:3000/dash/${userId}/budget/exp`
 
-        console.log(url)
-        
         const message = await fetch(url, {
             method: "POST",
             body: JSON.stringify({
@@ -69,7 +66,7 @@ const inputHandler = () => {
             }
         }) // get call 
         const toJson = await message.json();
-        console.log(toJson, '<---add Exp')
+
         const delForm = createDeleteFormExp(toJson);  
         const editForm = createEditFormExp(toJson);
         const newListItem = document.createElement('LI');
@@ -94,7 +91,7 @@ const inputHandler = () => {
 
         expenseList.appendChild(newListItem);   
 
-        document.getElementById('budget').innerText = parseInt(document.getElementById('budget').innerText) - parseInt(itemAmount.value);
+        document.getElementById('budget').innerText = (parseFloat(document.getElementById('budget').innerText) - parseFloat(itemAmount.value)).toFixed(2)
 
         itemDesc.value = '';
         itemAmount.value = '';
@@ -193,6 +190,7 @@ const createEditFormInc = (obj) => {
     inputAmt.setAttribute('type', 'number');
     inputAmt.setAttribute('value', obj.amount);
     inputAmt.setAttribute('name', 'amount');
+    inputAmt.setAttribute('step', '0.1')
 
     inputDesc.setAttribute('type', 'text');
     inputDesc.setAttribute('value', obj.description);
@@ -226,6 +224,7 @@ const createEditFormExp = (obj) => {
     inputAmt.setAttribute('type', 'number');
     inputAmt.setAttribute('value', obj.amount);
     inputAmt.setAttribute('name', 'amount');
+    inputAmt.setAttribute('step', '0.1')
 
     inputDesc.setAttribute('type', 'text');
     inputDesc.setAttribute('value', obj.description);

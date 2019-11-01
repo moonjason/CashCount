@@ -27,10 +27,18 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json())
 
+const isLoggedIn = (req, res, next) => {
+    if (!req.session.logged) {
+        res.redirect('/');
+    }
+    next();
+}
+
+
 const userController = require('./controllers/users');
 const dashController = require('./controllers/dashboard');
 
-app.use('/dash', dashController);
+app.use('/dash', isLoggedIn, dashController);
 app.use('/auth', userController);
 
 app.get('/', (req, res) => {

@@ -33,7 +33,7 @@ router.post('/register',  async (req, res) => {
         req.session.username = createdUser.eventNames;
         req.session.logged = true; 
 
-        res.redirect('../dash'); //render req.session.username's items?? 
+        res.redirect(`../dash/${createdUser._id}`); //render req.session.username's items?? 
     } else {
         req.session.msg = 'Passwords do not match'
         res.redirect('register')
@@ -42,11 +42,13 @@ router.post('/register',  async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({username: req.body.username})
+        const user = await User.findOne({username: req.body.username}) || {password: ""}
+        const userEmail = await User.findOne({email: req.body.username}) || {password: ""}
         // if User.findOne returns null/undefined we'll catch an error
-        if (user) {
+        console.log(userEmail)
+        if (req.body.username === user.username || req.body.username === userEmail.email) {
             // if there is a username... compare their passwords 
-            if(bcrypt.compareSync(req.body.password, user.password)){
+            if(bcrypt.compareSync(req.body.password, user.password) || bcrypt.compareSync(req.body.password, userEmail.password)){
                 //start sesh
                 req.session.msg = '';
                 // if there are no failed attempts, there is no message
@@ -54,16 +56,22 @@ router.post('/login', async (req, res) => {
                 req.session.username = user.username;
                 req.session.logged = true;
                 console.log(req.session);
-                res.redirect(`../dash/${user._id}`)
+                if(user.password !== "") {
+                    res.redirect(`/dash/${user._id}`)
+                } else {
+                    res.redirect(`/dash/${userEmail._id}`)
+                }
             } else {
-                req.session.msg = 'Username or Password is Incorrect'
-                res.redirect('login')
+                req.session.msg = 'Username/E-mail or Password is Incorrect'
+                res.redirect('/auth/login');
             }
         } else {
-            req.session.msg = 'Username or Password is Incorrect'
+            req.session.msg = 'Username/E-mail or Password is Incorrect'
+            res.redirect('/auth/login');
         }
     } catch(err) {
         console.log(err);
+        res.send(err);
     }
 })
 

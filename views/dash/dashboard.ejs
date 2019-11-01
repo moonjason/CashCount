@@ -1,16 +1,12 @@
 <%- include('../partials/header') %>
 <script src="../js/app.js" defer></script>
-<div class="sidenav">
-    <a href="#">Help</a>
-    <a href="#">Settings</a>
-    <a href="/dash/logout">Logout</a>
-</div>
+<%- include('../partials/navbar') %>
 <div class="main">
     <h1>Hello, <%=user.username%></h1>
-    <h3>Available budget for <%=currentMonth%>: $<span id="budget"><%=budget%></span></h3>
+    <h3>Available budget for <%=currentMonth%>: $<span id="budget"><%=parseFloat(budget).toFixed(2)%></span></h3>
     <div id="calculator">
         <input id="itemDesc" type="text" name="description" placeholder="Description">
-        <input id="itemAmount" type="number" name="amount" placeholder="Amount">
+        <input id="itemAmount" type="number" name="amount" placeholder="Amount" step=".01">
         <button id="addInc" type="submit" value="+">+</button>
         <button id="addExp" type="submit" value="-">-</button>
     </div>
@@ -24,7 +20,7 @@
                 <div class="editModalInc <%=[i]%>">
                     <form action="/dash/<%=user.incomes[i]._id%>/inc?_method=PUT" method="POST">
                         <input type="text" value="<%=user.incomes[i].description%>" name="description">
-                        <input type="number" value="<%=user.incomes[i].amount%>" name="amount">
+                        <input type="number" value="<%=user.incomes[i].amount%>" name="amount" step=".01">
                         <button class="doneInc <%=[i]%>">Done</button>
                     </form>
                 </div>
@@ -40,7 +36,7 @@
                 <div class="editModalExp <%=[i]%>">
                     <form action="/dash/<%=user.expenses[i]._id%>/exp?_method=PUT" method="POST">
                         <input type="text" value="<%=user.expenses[i].description%>" name="description">
-                        <input type="number" value="<%=user.expenses[i].amount%>" name="amount">
+                        <input type="number" value="<%=user.expenses[i].amount%>" name="amount" step=".01">
                         <button class="doneExp <%=[i]%>">Done</button>
                     </form>
                 </div>

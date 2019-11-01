@@ -11,7 +11,9 @@ router.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         err 
             ? console.log(err)
-            : res.redirect('/')
+            : res.render('home',{
+                logOut: 'You have successfully logged out'
+            })
     })
 })
 
@@ -60,10 +62,24 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.get('/:id/settings', async (req, res) => {
+    try {
+        req.session.wrongPass = '';
+        const user = await User.findOne({'_id': req.params.id});
+        res.render('dash/settings', {
+            user,
+            wrongPass: req.session.wrongPass,
+        });
+    } catch(err){
+        console.log(err);
+        res.send(err);
+    }
+})
+
 router.post('/:id/budget/inc', async (req, res) => {
     const createdIncome = await Income.create(req.body);
     console.log(createdIncome)
-    const user = await User.findById('5db67f7637910e6eed426d67')
+    const user = await User.findById(req.params.id)
     user.incomes.push(createdIncome);
     await user.save()
     console.log(user)
@@ -73,7 +89,7 @@ router.post('/:id/budget/inc', async (req, res) => {
 router.post('/:id/budget/exp', async (req, res) => {
     const createdExpense = await Expense.create(req.body);
     console.log(createdExpense)
-    const user = await User.findById('5db67f7637910e6eed426d67')
+    const user = await User.findById(req.params.id)
     user.expenses.push(createdExpense);
     await user.save()
     console.log(user)
@@ -137,6 +153,38 @@ router.put('/:id/exp', async (req, res) => {
         const findFoundUser = await User.findOne({'expenses': req.params.id });
 
         res.redirect(`/dash/${findFoundUser._id}`)
+    } catch(err) {
+        console.log(err);
+        res.send(err);
+    }
+})
+
+router.put('/:id/settings', async (req, res) => {
+    try {
+        const foundUser = await User.findOne({'_id': req.params.id})
+        if (bcrypt.compareSync(req.body.passwordOld, foundUser.password)) {
+            if (req.body.password === req.body.passwordConfirm) {
+                req.session.wrongPass = 'Password updated successfully';
+                const newPasswordHash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+                foundUser.password = newPasswordHash; 
+                res.render('dash/settings', {
+                    user: foundUser,
+                    wrongPass: req.session.wrongPass,
+                })
+            } else {
+                req.session.wrongPass = 'Passwords do not match';
+                res.render('dash/settings' , {
+                    user: foundUser,
+                    wrongPass: req.session.wrongPass,
+                })
+            }
+        } else {
+            req.session.wrongPass = 'Please check your old password';
+            res.render('dash/settings' , {
+                user: foundUser,
+                wrongPass: req.session.wrongPass,
+            })
+        }
     } catch(err) {
         console.log(err);
         res.send(err);

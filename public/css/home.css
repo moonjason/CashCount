@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    border: .5rem solid black;
+    margin: 2% 20% 2% 20%;
+    padding-bottom: 2%;
+    overflow: hidden;
+}
+
+img { 
+    width: 65%;
+}
+
+button:hover {
+    background-color: lightblue;
+}
+
+
+.container {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.btn-container {
+    margin-top: 7%;
+    text-align: center;
+}
+
+.reg-container {
+    border: 1rem solid black;
+}
+
+#homeTitle {
+    font-family: 'Lobster', cursive;
+    font-size: 10rem;
+}
