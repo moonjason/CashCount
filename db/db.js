@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // mongoose is an odm (object oriented data-model)
-const connectionString = 'mongodb://localhost/budgetapp';
+const connectionString = process.env.MONGODB_URI
 
 mongoose.connect(connectionString, { useNewUrlParser: true,
                                      useUnifiedTopology: true,

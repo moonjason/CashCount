@@ -2,8 +2,13 @@ const express = require('express');
 const app = express();
 const methodOverride = require('method-override');
 const session = require('express-session');
-const PORT = process.env.PORT || 3000;
+
+require('dotenv').config()
+
 require('./db/db');
+
+const PORT = process.env.PORT;
+
 
 app.set('view engine', 'ejs');
 
@@ -47,5 +52,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log('Listening on', PORT);
+    console.log(`Runnin on port ${PORT}`);
 })
