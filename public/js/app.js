@@ -12,7 +12,7 @@ const inputHandler = () => {
             return; 
         }
         console.log(budget)
-        const message = await fetch(`http://cashcountapp.herokuapp.com/dash/${userId}/budget/inc`, {
+        const message = await fetch(`https://cashcountapp.herokuapp.com/dash/${userId}/budget/inc`, {
             method: "POST",
             body: JSON.stringify({
                 description: itemDesc.value,
@@ -61,7 +61,7 @@ const inputHandler = () => {
             return; 
         }
 
-        const url = `http://cashcountapp.herokuapp.com/dash/${userId}/budget/exp`
+        const url = `https://cashcountapp.herokuapp.com/dash/${userId}/budget/exp`
 
         const message = await fetch(url, {
             method: "POST",
