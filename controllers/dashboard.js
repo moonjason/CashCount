@@ -63,7 +63,7 @@ router.get('/:id', async (req, res) => {
             user,
             currentMonth,
             budget,
-        })// with the sessions current shit 
+        })
     } catch (err) {
         console.log(err);
     }
@@ -85,36 +85,26 @@ router.get('/:id/settings', async (req, res) => {
 
 router.post('/:id/budget/inc', async (req, res) => {
     const createdIncome = await Income.create(req.body);
-    console.log(createdIncome)
     const user = await User.findById(req.params.id)
     user.incomes.push(createdIncome);
     await user.save()
-    console.log(user)
     res.send(createdIncome)
 })
 
 router.post('/:id/budget/exp', async (req, res) => {
     const createdExpense = await Expense.create(req.body);
-    console.log(createdExpense)
     const user = await User.findById(req.params.id)
     user.expenses.push(createdExpense);
     await user.save()
-    console.log(user)
     res.send(createdExpense)
 })
 
 router.delete('/:id/exp', async (req, res) => {
-    console.log(req.params, 'expense delete route');
     try {
         await Expense.findByIdAndRemove(req.params.id);
         const findUser = await User.findOne({'expenses': req.params.id});
-
-        console.log(findUser, 'foundUser')
-
         findUser.expenses.remove(req.params.id)
         await findUser.save()
-        console.log('saved')
-
         res.redirect(`/dash/${findUser._id}`)
     } catch(err){
         console.log(err);
@@ -123,16 +113,12 @@ router.delete('/:id/exp', async (req, res) => {
 })
 
 router.delete('/:id/inc', async (req, res) => {
-    console.log(req.params, 'income delete route');
     try {
         await Income.findByIdAndRemove(req.params.id);
         const findUser = await User.findOne({'incomes': req.params.id});
 
-        console.log(findUser, 'foundUser')
-
         findUser.incomes.remove(req.params.id)
         await findUser.save()
-        console.log('saved')
 
         res.redirect(`/dash/${findUser._id}`)
     } catch(err){
@@ -142,7 +128,6 @@ router.delete('/:id/inc', async (req, res) => {
 })
 
 router.put('/:id/inc', async (req, res) => {
-    console.log(req.body.description);
     try {
         const findUpdatedInc = await Income.findByIdAndUpdate(req.params.id, req.body, {new: true});
         const findFoundUser = await User.findOne({'incomes': req.params.id });
