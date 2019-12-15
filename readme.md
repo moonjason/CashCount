@@ -1,5 +1,8 @@
 # CashCount
 
+Deployed on: 
+[Cash Count](https://cashcountapp.herokuapp.com/)
+
 Online web application for keeping track of one's funds!  
 
 - Registration

@@ -45,7 +45,6 @@ app.use('/dash', isLoggedIn, dashController);
 app.use('/auth', userController);
 
 app.get('/', (req, res) => {
-    console.log(req.session, 'home route');
     res.render('home', {
         logOut: req.session.logOutMsg,
     });
