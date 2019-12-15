@@ -13,7 +13,7 @@ Technologies used: JavaScript, Node, Express, MongoDB, Mongoose, Embedded JavaSc
 
 ![alt home page](public/images/pic1.png)
  
-![alt dashboard](public/images/pic2.png)
+![alt dashboard](public/images/pic3.png)
  
 # User Story 
 - User starts at the homepage
